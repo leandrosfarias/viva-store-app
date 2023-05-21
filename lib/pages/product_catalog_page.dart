@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:viva_store_app/widgets/product_grid_widget.dart';
+import 'package:viva_store_app/widgets/shopping_cart.dart';
+
+import '../models/product.dart';
 
 class ProductCatalogPage extends StatefulWidget {
   int totalShoppingCart = 0;
+  final List<Product> shoppingCart = [];
 
   ProductCatalogPage({Key? key}) : super(key: key);
 
@@ -11,8 +15,10 @@ class ProductCatalogPage extends StatefulWidget {
 }
 
 class _ProductCatalogPageState extends State<ProductCatalogPage> {
-  void updateShoppingCart() {
+  void updateShoppingCart(Product product) {
     setState(() {
+      print('Produto ${product.name} adicionado ao carrinho');
+      widget.shoppingCart.add(product);
       widget.totalShoppingCart++;
     });
   }
@@ -46,7 +52,12 @@ class _ProductCatalogPageState extends State<ProductCatalogPage> {
                   padding: const EdgeInsets.only(top: 5.0, right: 5.0),
                   child: Stack(children: <Widget>[
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => ShoppingCart(
+                                  products: widget.shoppingCart,
+                                )));
+                      },
                       icon: const Icon(
                         Icons.shopping_cart,
                         color: Colors.white,

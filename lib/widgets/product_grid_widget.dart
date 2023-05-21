@@ -7,8 +7,7 @@ import '../models/product.dart';
 
 class ProductGridWidget extends StatefulWidget {
   final String category;
-  final List<Product> shoppingCart = [];
-  final Function() onShoppingCartUpdate;
+  final Function(Product product) onShoppingCartUpdate;
 
   ProductGridWidget(
       {Key? key, required this.category, required this.onShoppingCartUpdate})
@@ -22,9 +21,7 @@ class _ProductGridWidgetState extends State<ProductGridWidget> {
   final double itemWidth = 200;
 
   void _addProductToShoppingCart(Product product) {
-    print('Produto ${product.name} adicionado ao carrinho');
-    widget.shoppingCart.add(product);
-    widget.onShoppingCartUpdate();
+    widget.onShoppingCartUpdate(product);
   }
 
   @override
