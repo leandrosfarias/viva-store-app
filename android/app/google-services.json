@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "298506194422",
+    "project_id": "viva-store-28598",
+    "storage_bucket": "viva-store-28598.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:298506194422:android:87415760f1f2b62fc14bd7",
+        "android_client_info": {
+          "package_name": "com.example.viva_store"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "298506194422-u81sc50jui9alt53ggi4q1cdpe7ub4d4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvluH2Vzl2eRM9MfBST5rKLd-ESpi1wMs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "298506194422-u81sc50jui9alt53ggi4q1cdpe7ub4d4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "298506194422-3ohjfoggs1fuskm7tt5jnscke939308s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.vivaStore"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:298506194422:android:861d1d5c945d6e76c14bd7",
+        "android_client_info": {
+          "package_name": "com.example.viva_store_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "298506194422-u81sc50jui9alt53ggi4q1cdpe7ub4d4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvluH2Vzl2eRM9MfBST5rKLd-ESpi1wMs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "298506194422-u81sc50jui9alt53ggi4q1cdpe7ub4d4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "298506194422-3ohjfoggs1fuskm7tt5jnscke939308s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.vivaStore"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
