@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:viva_store_app/models/order_item.dart';
+import 'package:viva_store_app/models/order.dart';
 
 import '../models/product.dart';
 
 class ShoppingCart extends StatefulWidget {
   final List<Product> products;
   final Function(String productId) onDeleteProductFromShoppingCart;
+  final Order order = Order();
+  late double total;
 
-  const ShoppingCart(
+  // final Order order = Order(itemsOrders, dateOrder);
+  // final ItemOrder itemOrder = ItemOrder(product, 1);
+  ShoppingCart(
       {Key? key,
       required this.products,
       required this.onDeleteProductFromShoppingCart})
@@ -17,6 +23,16 @@ class ShoppingCart extends StatefulWidget {
 }
 
 class _ShoppingCartState extends State<ShoppingCart> {
+  @override
+  void initState() {
+    super.initState();
+    for (var product in widget.products) {
+      widget.order.addOrderItem(OrderItem(product.id, 1));
+    }
+    //
+    widget.total = calculateTotal();
+  }
+
   @override
   Widget build(BuildContext context) {
     for (var product in widget.products) {
@@ -32,36 +48,60 @@ class _ShoppingCartState extends State<ShoppingCart> {
           Expanded(
             child: ListView.builder(
                 itemCount: widget.products.length,
-                itemBuilder: (context, index) => Dismissible(
-                      key: UniqueKey(),
-                      onDismissed: (direction) {
-                        print('direction => $direction');
-                        print('Id do produto que deve ser removido '
-                            '=> ${widget.products[index].id}');
-                        setState(() {
-                          // widget.products.removeWhere(
-                          //     (p) => p.id == widget.products[index].id);
-                          widget.onDeleteProductFromShoppingCart(
-                              widget.products[index].id);
-                          // print(
-                          //     'Reconstruindo a tela após remover produto '
-                          //         'cujo id é => ${widget.products[index].id}...');
-                        });
-                      },
-                      background: Container(
-                        color: Colors.red,
-                      ),
-                      child: ListTile(
-                        title: Text(widget.products[index].name),
-                        subtitle: Text(
-                            'R\$ ${widget.products[index].price.toString()}'),
-                      ),
-                    )),
+                itemBuilder: (context, index) {
+                  var quantityPerOrderItem = widget.order.getQtdPerOrderItem();
+                  return Dismissible(
+                    key: UniqueKey(),
+                    onDismissed: (direction) {
+                      print('direction => $direction');
+                      print('Id do produto que deve ser removido '
+                          '=> ${widget.products[index].id}');
+                      setState(() {
+                        widget.onDeleteProductFromShoppingCart(
+                            widget.products[index].id);
+                      });
+                    },
+                    background: Container(
+                      color: Colors.red,
+                    ),
+                    child: ListTile(
+                      title: Text(
+                          '${widget.products[index].name} ${quantityPerOrderItem[index]}x'),
+                      subtitle: Text(
+                          'R\$ ${widget.products[index].price.toString()}'),
+                      trailing: IconButton(
+                          onPressed: () {
+                            //
+                            print(
+                                'Quantidade atual do produto é => ${quantityPerOrderItem[index]}');
+                            // incrementa quantidade do item
+                            quantityPerOrderItem[index] =
+                                quantityPerOrderItem[index] + 1;
+                            print(
+                                'Estou tentando atualizar unidade de produto para ${quantityPerOrderItem[index]}');
+                            setState(() {
+                              // atualiza a quantidade do item
+                              widget.order.updateProductQuantity(
+                                  widget.products[index].id,
+                                  quantityPerOrderItem[index]++);
+                              // atualiza o total
+                              widget.total =
+                                  widget.total + widget.products[index].price;
+                            });
+                            //
+                          },
+                          icon: const Icon(
+                            Icons.add,
+                            color: Colors.green,
+                          )),
+                    ),
+                  );
+                }),
           ),
           Container(
             padding: const EdgeInsets.all(20.0),
             child: Text(
-              'Total R\$ ${calculateTotal()}',
+              'Total R\$ ${widget.total}',
               style: const TextStyle(
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold,
@@ -93,4 +133,6 @@ class _ShoppingCartState extends State<ShoppingCart> {
     }
     return total;
   }
+
+  void confirmOrder() {}
 }
