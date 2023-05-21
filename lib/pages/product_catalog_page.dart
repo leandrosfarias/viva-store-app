@@ -15,11 +15,19 @@ class ProductCatalogPage extends StatefulWidget {
 }
 
 class _ProductCatalogPageState extends State<ProductCatalogPage> {
-  void updateShoppingCart(Product product) {
+  void addProductToShoppingCart(Product product) {
     setState(() {
       print('Produto ${product.name} adicionado ao carrinho');
       widget.shoppingCart.add(product);
       widget.totalShoppingCart++;
+    });
+  }
+
+  void deleteProductFromShoppingCart(String productId) {
+    print('deleteProductFromShoppingCart foi chamado');
+    setState(() {
+      widget.shoppingCart.removeWhere((product) => product.id == productId);
+      widget.totalShoppingCart--;
     });
   }
 
@@ -56,6 +64,8 @@ class _ProductCatalogPageState extends State<ProductCatalogPage> {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => ShoppingCart(
                                   products: widget.shoppingCart,
+                                  onDeleteProductFromShoppingCart:
+                                      deleteProductFromShoppingCart,
                                 )));
                       },
                       icon: const Icon(
@@ -117,18 +127,22 @@ class _ProductCatalogPageState extends State<ProductCatalogPage> {
             children: [
               ProductGridWidget(
                   category: 'vestuario',
-                  onShoppingCartUpdate: updateShoppingCart),
+                  onShoppingCartUpdate: addProductToShoppingCart),
               ProductGridWidget(
                   category: 'decoracao',
-                  onShoppingCartUpdate: updateShoppingCart),
+                  onShoppingCartUpdate: addProductToShoppingCart),
               ProductGridWidget(
-                  category: 'beleza', onShoppingCartUpdate: updateShoppingCart),
+                  category: 'beleza',
+                  onShoppingCartUpdate: addProductToShoppingCart),
               ProductGridWidget(
-                  category: 'cama', onShoppingCartUpdate: updateShoppingCart),
+                  category: 'cama',
+                  onShoppingCartUpdate: addProductToShoppingCart),
               ProductGridWidget(
-                  category: 'mesa', onShoppingCartUpdate: updateShoppingCart),
+                  category: 'mesa',
+                  onShoppingCartUpdate: addProductToShoppingCart),
               ProductGridWidget(
-                  category: 'banho', onShoppingCartUpdate: updateShoppingCart),
+                  category: 'banho',
+                  onShoppingCartUpdate: addProductToShoppingCart),
             ],
           ) // This trailing comma makes auto-formatting nicer for build methods.
           ),
