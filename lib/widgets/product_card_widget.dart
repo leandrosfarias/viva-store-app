@@ -28,6 +28,12 @@ class ProductCard extends StatelessWidget {
             child: Image.network(
               product.imageUrl,
               fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return const Placeholder(
+                  fallbackHeight: 100,
+                  fallbackWidth: 100,
+                );
+              },
             ),
           ),
           Padding(

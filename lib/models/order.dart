@@ -14,13 +14,19 @@ class Order {
   }
 
   void updateProductQuantity(String productId, int quantity) {
-    print('Quantidade que desejo atualizar => $quantity');
-    print('Produto que terá sua quantidade atualizada => $productId');
-    var item =
-        itemsOrders.firstWhere((orderItem) => orderItem.productId == productId);
-    item.qtdProduct = quantity;
-    print(
-        'quantidade item de pedido atualizado para => ${itemsOrders.firstWhere((orderItem) => orderItem.productId == productId).qtdProduct}');
+    //
+    if (quantity > 0) {
+      print('Quantidade que desejo atualizar => $quantity');
+      print('Produto que terá sua quantidade atualizada => $productId');
+      var item = itemsOrders
+          .firstWhere((orderItem) => orderItem.productId == productId);
+      item.qtdProduct = quantity;
+      print(
+          'quantidade item de pedido atualizado para => ${itemsOrders.firstWhere((orderItem) => orderItem.productId == productId).qtdProduct}');
+    } else {
+      print('Quantidade precisa ser maior que zero!');
+    }
+
   }
 
   List<int> getQtdPerOrderItem() {
